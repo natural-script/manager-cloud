@@ -17,7 +17,7 @@ const root = path.join(__dirname, 'assets');
 
   app.use(express.static(root));
 
-  var server = app.listen(5050, function () {});
+  var server = app.listen();
 
   app.post('/getFileSize', function (req, res) {
     getFileSize(req.body.fileURL, function (err, o) {
