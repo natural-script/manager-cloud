@@ -12,7 +12,7 @@ app.use(bodyParser({
 }));
 const root = path.join(__dirname, 'assets');
 
-  app.use(staticGzip(/(framework\.min\.html|db-manager\.min\.html)$/));
+  app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html)$/));
 
   app.use(express.static(root));
 
