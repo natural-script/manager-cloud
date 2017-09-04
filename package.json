@@ -11,8 +11,7 @@
     "http-static-gzip-regexp",
     "cors",
     "remote-file-size",
-    "body-parser",
-    "cors-anywhere"
+    "body-parser"
   ],
   "repository": {
     "type": "git",

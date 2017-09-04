@@ -5,7 +5,6 @@ const staticGzip = require('http-static-gzip-regexp');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const getFileSize = require('remote-file-size');
-const cors_proxy = require('cors-anywhere');
 const app = express();
 app.use(cors());
 app.use(bodyParser({
@@ -13,7 +12,7 @@ app.use(bodyParser({
 }));
 const root = path.join(__dirname, 'assets');
 
-  app.use(staticGzip(/(framework\.min\.html)$/));
+  app.use(staticGzip(/(framework\.min\.html|db-manager\.min\.html)$/));
 
   app.use(express.static(root));
 
@@ -24,13 +23,3 @@ const root = path.join(__dirname, 'assets');
       res.send(String(o));
     });
   });
-
-  var localAddress = '0.0.0.0' || 'localhost';
-  cors_proxy.createServer({
-    originWhitelist: [], // Allow all origins
-    requireHeader: [],
-    setHeaders: {
-      "Access-Control-Expose-Headers": "Content-Length"
-    },
-    removeHeaders: ['cookie', 'cookie2']
-  }).listen(6060, localAddress, function () {});
