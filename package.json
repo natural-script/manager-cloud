@@ -11,19 +11,13 @@
     "express",
     "http-static-gzip-regexp",
     "cors",
-    "appdirectory",
-    "node-json-db",
     "remote-file-size",
     "body-parser",
-    "pkg",
-    "figlet",
-    "shelljs",
-    "command-line-args",
     "cors-anywhere"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/project-jste/manager"
+    "url": "https://github.com/project-jste/manager-heroku"
   },
   "pkg": {
     "assets": [
