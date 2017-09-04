@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "The official Jste Manager",
   "main": "index.js",
-  "bin": "index.js",
   "scripts": {
     "start": "node index.js"
   },
@@ -18,23 +17,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/project-jste/manager-heroku"
-  },
-  "pkg": {
-    "assets": [
-      "assets/*"
-    ],
-    "targets": [
-      "node8-linux-x86",
-      "node8-linux-x64",
-      "node8-linux-armv6",
-      "node8-linux-armv7",
-      "node8-freebsd-x86",
-      "node8-freebsd-x64",
-      "node8-win-x86",
-      "node8-win-x64",
-      "node8-macos-x86",
-      "node8-macos-x64"
-    ]
   },
   "keywords": [
     "node",
