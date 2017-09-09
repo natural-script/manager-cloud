@@ -11,6 +11,7 @@
     "http-static-gzip-regexp",
     "cors",
     "remote-file-size",
+    "express-device",
     "body-parser"
   ],
   "repository": {
@@ -26,5 +27,6 @@
     "css"
   ],
   "author": "Jste Team",
-  "homepage": "https://project-jste.github.io/"
+  "homepage": "https://project-jste.github.io/",
+  "license" : "AGPL-3.0+"
 }
