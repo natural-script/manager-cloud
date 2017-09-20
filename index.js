@@ -29,3 +29,25 @@ app.post('/getFileSize', function (req, res) {
 app.get('/deviceForm', function (req, res) {
   res.send(req.device.type);
 });
+
+app.get('/getVideoInfo', function (req, res) {
+  var request = new XMLHttpRequest();
+
+  request.open('POST', 'https://loadercdn.io/api/v1/create');
+
+  request.setRequestHeader('Content-Type', 'application/json');
+
+  request.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      var availableQualities = $.parseJSON(this.responseText).qualities;
+      console.log(this.responseText);
+    }
+  };
+
+  var body = {
+    'key': 'EatRoyUhJZVyhfI2V4dUNuwiDrTooY6T7fG5bQw',
+    'link': req.body.url
+  };
+
+  request.send(JSON.stringify(body));
+});
