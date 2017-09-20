@@ -30,7 +30,7 @@ app.get('/deviceForm', function (req, res) {
   res.send(req.device.type);
 });
 
-app.get('/getVideoInfo', function (req, res) {
+app.post('/getVideoInfo', function (req, res) {
   var request = new XMLHttpRequest();
 
   request.open('POST', 'https://loadercdn.io/api/v1/create');
@@ -40,7 +40,7 @@ app.get('/getVideoInfo', function (req, res) {
   request.onreadystatechange = function () {
     if (this.readyState === 4) {
       var availableQualities = $.parseJSON(this.responseText).qualities;
-      console.log(this.responseText);
+      res.send(this.responseText);
     }
   };
 
