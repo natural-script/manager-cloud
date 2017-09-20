@@ -39,7 +39,6 @@ app.post('/getVideoInfo', function (req, res) {
 
   request.onreadystatechange = function () {
     if (this.readyState === 4) {
-      var availableQualities = $.parseJSON(this.responseText).qualities;
       res.send(this.responseText);
     }
   };
