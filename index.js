@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const staticGzip = require('http-static-gzip-regexp');
 const cors = require('cors');
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const bodyParser = require('body-parser');
 const getFileSize = require('remote-file-size');
 const app = express();
@@ -32,7 +33,6 @@ app.get('/deviceForm', function (req, res) {
 
 app.post('/getVideoInfo', function (req, res) {
   var request = new XMLHttpRequest();
-
   request.open('POST', 'https://loadercdn.io/api/v1/create');
 
   request.setRequestHeader('Content-Type', 'application/json');

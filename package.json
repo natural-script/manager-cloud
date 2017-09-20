@@ -10,6 +10,7 @@
     "express",
     "http-static-gzip-regexp",
     "cors",
+    "xmlhttprequest",
     "remote-file-size",
     "express-device",
     "body-parser"
