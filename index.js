@@ -18,7 +18,7 @@ app.use(bodyParser.json({
 	limit: '50mb',
 	type: 'application/json'
 }));
-const octo = new Octokat({token: fs.readFileSync('GITHUB_TOKEN').toString()})
+const octo = new Octokat({token: fs.readFileSync('GITHUB_TOKEN').toString().trim()})
 const root = path.join(__dirname, 'assets');
 
 app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html|loader\.min\.js)$/));
