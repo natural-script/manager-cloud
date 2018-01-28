@@ -41,7 +41,7 @@ app.post('/submitCommand', function (req, res) {
 var repo = octo.repos('project-jste', 'framework')
 repo.contents('src/JS/Jste/Translations/commands.rive').fetch() // Use `.read` to get the raw file.
 .then((info) => {
-var newContent = Buffer.from(info.content, 'base64').toString() + req.body.command;
+var newContent = Buffer.from(info.content, 'base64').toString() + '\n\n' + req.body.command;
 var config = {
   message: 'More translations for the commands',
   content: Buffer.from(newContent).toString('base64'),
