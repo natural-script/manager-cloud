@@ -8,11 +8,17 @@ const bodyParser = require('body-parser');
 const getFileSize = require('remote-file-size');
 const app = express();
 const device = require('express-device');
+const Octokat = require('octokat');
 app.use(device.capture());
 app.use(cors());
-app.use(bodyParser({
-  limit: '50mb'
+app.use(bodyParser.urlencoded({
+	extended: true
 }));
+app.use(bodyParser.json({
+	limit: '50mb',
+	type: 'application/json'
+}));
+const octo = new Octokat({token: fs.readFileSync('GITHUB_TOKEN').toString()})
 const root = path.join(__dirname, 'assets');
 
 app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html|loader\.min\.js)$/));
@@ -29,6 +35,23 @@ app.post('/getFileSize', function (req, res) {
 
 app.get('/deviceForm', function (req, res) {
   res.send(req.device.type);
+});
+
+app.post('/submitCommand', function (req, res) {
+var repo = octo.repos('project-jste', 'framework')
+repo.contents('src/JS/Jste/Translations/commands.rive').fetch() // Use `.read` to get the raw file.
+.then((info) => {
+var newContent = Buffer.from(info.content, 'base64').toString() + req.body.command;
+var config = {
+  message: 'More translations for the commands',
+  content: Buffer.from(newContent).toString('base64'),
+  sha: info.sha,
+}
+repo.contents('src/JS/Jste/Translations/commands.rive').add(config)
+.then((info) => {
+  console.log('File Updated. new sha is ', info.commit.sha)
+})
+});
 });
 
 app.post('/getVideoInfo', function (req, res) {
