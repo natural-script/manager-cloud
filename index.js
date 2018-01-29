@@ -6,8 +6,7 @@ const cors = require('cors');
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const bodyParser = require('body-parser');
 const getFileSize = require('remote-file-size');
-var AsyncRouter = require("express-async-router").AsyncRouter;
-const app = (AsyncRouter());
+const app = (express());
 const device = require('express-device');
 const Octokat = require('octokat');
 const translate = require('google-translate-api');
@@ -58,7 +57,7 @@ repo.contents('src/JS/Translations/commands.rive').add(config)
 });
 
 app.post('/autoCorrect', function (req, res) {
-
+console.log(translate(req.body.input, {from: req.body.lang, to: req.body.lang}).text);
     res.send(translate(req.body.input, {from: req.body.lang, to: req.body.lang}).text);
 });
 
