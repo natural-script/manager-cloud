@@ -59,7 +59,7 @@ repo.contents('src/JS/Translations/commands.rive').add(config)
 
 app.post('/autoCorrect', async function (req, res) {
 
-    res.send(await translate(req.body.input, {from: req.body.lang, to: req.body.lang}).text);
+    res.send(translate(req.body.input, {from: req.body.lang, to: req.body.lang}).text);
 });
 
 app.post('/getVideoInfo', function (req, res) {
