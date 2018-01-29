@@ -12,6 +12,7 @@
     "cors",
     "octokat",
     "google-translate-api",
+    "express-async-await",
     "xmlhttprequest",
     "remote-file-size",
     "express-device",
