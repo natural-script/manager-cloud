@@ -9,9 +9,11 @@ const getFileSize = require('remote-file-size');
 const app = express();
 const device = require('express-device');
 const Octokat = require('octokat');
+const translate = require('google-translate-api');
 app.use(device.capture());
 app.use(cors());
 app.use(bodyParser.urlencoded({
+	limit: '50mb',	
 	extended: true
 }));
 app.use(bodyParser.json({
@@ -52,6 +54,10 @@ repo.contents('src/JS/Translations/commands.rive').add(config)
   console.log('File Updated. new sha is ', info.commit.sha)
 })
 });
+});
+
+app.post('/autoCorrect', function (req, res) {
+res.send((await translate(req.body.input, {from: req.body.lang, to: req.body.lang})).text);
 });
 
 app.post('/getVideoInfo', function (req, res) {
