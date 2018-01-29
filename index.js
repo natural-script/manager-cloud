@@ -39,7 +39,7 @@ app.get('/deviceForm', function (req, res) {
 
 app.post('/submitCommand', function (req, res) {
 var repo = octo.repos('project-jste', 'framework')
-repo.contents('src/JS/Jste/Translations/commands.rive').fetch() // Use `.read` to get the raw file.
+repo.contents('src/JS/Translations/commands.rive').fetch() // Use `.read` to get the raw file.
 .then((info) => {
 var newContent = Buffer.from(info.content, 'base64').toString() + '\n\n' + req.body.command;
 var config = {
@@ -47,7 +47,7 @@ var config = {
   content: Buffer.from(newContent).toString('base64'),
   sha: info.sha,
 }
-repo.contents('src/JS/Jste/Translations/commands.rive').add(config)
+repo.contents('src/JS/Translations/commands.rive').add(config)
 .then((info) => {
   console.log('File Updated. new sha is ', info.commit.sha)
 })
