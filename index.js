@@ -57,7 +57,7 @@ repo.contents('src/JS/Translations/commands.rive').add(config)
 });
 });
 
-app.post('/autoCorrect', async function (req, res) {
+app.post('/autoCorrect', function (req, res) {
 
     res.send(translate(req.body.input, {from: req.body.lang, to: req.body.lang}).text);
 });
