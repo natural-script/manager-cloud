@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const getFileSize = require('remote-file-size');
 const app = express();
 const device = require('express-device');
+const favicon = require('serve-favicon')
 const Octokat = require('octokat');
 const translate = require('google-translate-api');
 app.use(device.capture());
@@ -20,6 +21,7 @@ app.use(bodyParser.json({
 	limit: '50mb',
 	type: 'application/json'
 }));
+app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')))
 const octo = new Octokat({token: fs.readFileSync('GITHUB_TOKEN').toString().trim()})
 const root = path.join(__dirname, 'assets');
 

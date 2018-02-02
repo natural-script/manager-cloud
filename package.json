@@ -15,6 +15,7 @@
     "xmlhttprequest",
     "remote-file-size",
     "express-device",
+    "serve-favicon",
     "body-parser"
   ],
   "repository": {
