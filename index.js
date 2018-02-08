@@ -8,21 +8,19 @@ const bodyParser = require('body-parser');
 const getFileSize = require('remote-file-size');
 const app = express();
 const device = require('express-device');
-const favicon = require('serve-favicon')
-const Octokat = require('octokat');
+const favicon = require('serve-favicon');
 const translate = require('google-translate-api');
 app.use(device.capture());
 app.use(cors());
 app.use(bodyParser.urlencoded({
-	limit: '50mb',	
-	extended: true
+  limit: '50mb',
+  extended: true
 }));
 app.use(bodyParser.json({
-	limit: '50mb',
-	type: 'application/json'
+  limit: '50mb',
+  type: 'application/json'
 }));
-app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')))
-const octo = new Octokat({token: fs.readFileSync('GITHUB_TOKEN').toString().trim()})
+app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 const root = path.join(__dirname, 'assets');
 
 app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html|loader\.min\.js)$/));
@@ -41,27 +39,13 @@ app.get('/deviceForm', function (req, res) {
   res.send(req.device.type);
 });
 
-app.post('/submitCommand', function (req, res) {
-var repo = octo.repos('project-jste', 'framework')
-repo.contents('src/JS/Translations/commands.rive').fetch() // Use `.read` to get the raw file.
-.then((info) => {
-var newContent = Buffer.from(info.content, 'base64').toString() + '\n\n' + req.body.command;
-var config = {
-  message: 'More translations for the commands',
-  content: Buffer.from(newContent).toString('base64'),
-  sha: info.sha,
-}
-repo.contents('src/JS/Translations/commands.rive').add(config)
-.then((info) => {
-  console.log('File Updated. new sha is ', info.commit.sha)
-})
-});
-});
-
 app.post('/autoCorrect', function (req, res) {
-translate(req.body.input, {from: req.body.lang, to: req.body.lang}).then(result => {
+  translate(req.body.input, {
+    from: req.body.lang,
+    to: req.body.lang
+  }).then(result => {
     res.send(result.text);
-});
+  });
 });
 
 app.post('/getVideoInfo', function (req, res) {
