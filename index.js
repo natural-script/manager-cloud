@@ -45,6 +45,7 @@ app.get('/deviceForm', function (req, res) {
 
 app.post('/submitCommand', function (req, res) {
   client.query('INSERT INTO commands(command) VALUES($1)', [req.body.command]);
+  res.send('Thanks for helping in shaping Jste :)')
 });
 
 app.post('/autoCorrect', function (req, res) {
