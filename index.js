@@ -43,6 +43,10 @@ app.get('/deviceForm', function (req, res) {
   res.send(req.device.type);
 });
 
+app.post('/submitCommand', function (req, res) {
+  client.query('INSERT INTO commands(command) VALUES($1)', [req.body.command]);
+});
+
 app.post('/autoCorrect', function (req, res) {
   translate(req.body.input, {
     from: req.body.lang,
