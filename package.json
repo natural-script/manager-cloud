@@ -16,7 +16,8 @@
     "remote-file-size",
     "express-device",
     "serve-favicon",
-    "body-parser"
+    "body-parser",
+    "pg"
   ],
   "repository": {
     "type": "git",

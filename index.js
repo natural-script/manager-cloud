@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const pg = require('pg').native
 const staticGzip = require('http-static-gzip-regexp');
 const cors = require('cors');
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -22,6 +23,9 @@ app.use(bodyParser.json({
 }));
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 const root = path.join(__dirname, 'assets');
+const connectionString = process.env.DATABASE_URL;
+const client = new pg.Client(connectionString);
+client.connect();
 
 app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html|loader\.min\.js)$/));
 
