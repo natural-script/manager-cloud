@@ -44,7 +44,11 @@ app.get('/deviceForm', function (req, res) {
 });
 
 app.post('/submitCommand', function (req, res) {
-  client.query('INSERT INTO commands(command) VALUES($1)', [req.body.command]);
+  if (res.body.type == 'command') {
+    client.query('INSERT INTO commands(command) VALUES($1)', [req.body.command]);
+  } else if (res.body.type == 'wordsDB') {
+    client.query('INSERT INTO wordsDB(DB) VALUES($1)', [req.body.DB]);
+  }
   res.send('Thanks for helping in shaping Jste :)')
 });
 
