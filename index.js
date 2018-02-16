@@ -27,7 +27,7 @@ const connectionString = process.env.DATABASE_URL;
 const client = new pg.Client(connectionString);
 client.connect();
 
-app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html|loader\.min\.js)$/));
+app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html|loader\.min\.js|loader-CodePenVersion\.min\.js)$/));
 
 app.use(express.static(root));
 
