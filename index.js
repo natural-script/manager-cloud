@@ -23,7 +23,7 @@ app.use(bodyParser.json({
 }));
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 const root = path.join(__dirname, 'assets');
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.DATABASE_URL || process.env.POSTGRESQLCONNSTR_DefaultConnection;
 const client = new pg.Client(connectionString);
 client.connect();
 
