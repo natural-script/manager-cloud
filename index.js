@@ -23,9 +23,13 @@ app.use(bodyParser.json({
 }));
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 const root = path.join(__dirname, 'assets');
-const connectionString = process.env.DATABASE_URL || process.env.POSTGRESQLCONNSTR_DefaultConnection;
+if (process.env.DATABASE_URL) {
+const pgConnectionString = process.env.DATABASE_URL;
 const client = new pg.Client(connectionString);
 client.connect();
+} else if (process.env.MYSQLCONNSTR_localdb) {
+const mysqlConnectionString = process.env.MYSQLCONNSTR_localdb;
+}
 
 app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html|loader\.min\.js|loader-CodePenVersion\.min\.js)$/));
 
