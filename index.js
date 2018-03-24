@@ -24,7 +24,7 @@ app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 const root = path.join(__dirname, 'assets');
 if (process.env.DATABASE_URL) {
   const pgConnectionString = process.env.DATABASE_URL;
-  const client = new pg.Client(connectionString);
+  const client = new pg.Client(pgConnectionString);
   client.connect();
 } else if (process.env.MYSQLCONNSTR_localdb) {
   const mysqlConnectionString = process.env.MYSQLCONNSTR_localdb;
@@ -56,7 +56,7 @@ app.post('/submitCommand', function (req, res) {
 });
 
 app.post('/autoCorrect', function (req, res) {
-  let key = 'ead84cea4382422088d6e3e2ba905da3';
+  let key = process.env.BING_SPELL_CHECK_KEY;
 
   let request_params = {
     method: 'POST',
