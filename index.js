@@ -10,7 +10,6 @@ const getFileSize = require('remote-file-size');
 const app = express();
 const device = require('express-device');
 const favicon = require('serve-favicon');
-const translate = require('google-translate-api');
 app.use(device.capture());
 app.use(cors());
 app.use(bodyParser.urlencoded({
@@ -24,11 +23,11 @@ app.use(bodyParser.json({
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 const root = path.join(__dirname, 'assets');
 if (process.env.DATABASE_URL) {
-const pgConnectionString = process.env.DATABASE_URL;
-const client = new pg.Client(connectionString);
-client.connect();
+  const pgConnectionString = process.env.DATABASE_URL;
+  const client = new pg.Client(connectionString);
+  client.connect();
 } else if (process.env.MYSQLCONNSTR_localdb) {
-const mysqlConnectionString = process.env.MYSQLCONNSTR_localdb;
+  const mysqlConnectionString = process.env.MYSQLCONNSTR_localdb;
 }
 
 app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html|loader\.min\.js|loader-CodePenVersion\.min\.js)$/));
@@ -57,12 +56,40 @@ app.post('/submitCommand', function (req, res) {
 });
 
 app.post('/autoCorrect', function (req, res) {
-  translate(req.body.input, {
-    from: req.body.lang,
-    to: req.body.lang
-  }).then(result => {
-    res.send(result.text);
-  });
+  let key = 'ead84cea4382422088d6e3e2ba905da3';
+
+  let request_params = {
+    method: 'POST',
+    hostname: 'api.cognitive.microsoft.com',
+    path: `/bing/v7.0/spellcheck?mkt=${req.body.lang}&mode=spell`,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': req.body.input.length + 5,
+      'Ocp-Apim-Subscription-Key': key
+    }
+  };
+
+  let response_handler = function (response) {
+    let body = '';
+    response.on('data', function (d) {
+      body += d;
+    });
+    response.on('end', function () {
+      var corrections = JSON.parse(body).flaggedTokens;
+      var result = req.body.input;
+      for (var i = 0; i < corrections.length; i++) {
+        var result = result.replace(corrections[i].token, corrections[i].suggestions[0].suggestion);
+      }
+      res.send(result)
+    });
+    response.on('error', function (e) {
+      res.send('Error: ' + e.message);
+    });
+  };
+
+  let reqCorrections = https.request(request_params, response_handler);
+  reqCorrections.write("text=" + req.body.input);
+  reqCorrections.end();
 });
 
 app.post('/getVideoInfo', function (req, res) {

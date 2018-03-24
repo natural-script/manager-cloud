@@ -11,7 +11,6 @@
     "http-static-gzip-regexp",
     "cors",
     "octokat",
-    "google-translate-api",
     "xmlhttprequest",
     "remote-file-size",
     "express-device",
