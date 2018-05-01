@@ -31,7 +31,7 @@ if (process.env.DATABASE_URL) {
   const mysqlConnectionString = process.env.MYSQLCONNSTR_localdb;
 }
 
-app.use(staticGzip(/(framework-LiveVersion\.min\.html|db-manager\.min\.html|loader\.min\.js|loader-CodePenVersion\.min\.js)$/));
+app.use(staticGzip(/(framework\.min\.html|db-manager\.min\.html|loader\.min\.js|loader-CodePenVersion\.min\.js)$/));
 
 app.use(express.static(root));
 
