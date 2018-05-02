@@ -48,9 +48,9 @@ app.get('/deviceForm', function (req, res) {
 });
 
 app.post('/submitCommand', function (req, res) {
-  if (res.body.type == 'command') {
+  if (req.body.type == 'command') {
     client.query('INSERT INTO commands(contributer, email, command) VALUES($1, $2, $3)', [req.body.contributer, req.body.email, req.body.command]);
-  } else if (res.body.type == 'dictionary') {
+  } else if (req.body.type == 'dictionary') {
     client.query('INSERT INTO dictionary(contributer, email, db) VALUES($1, $2, $3)', [req.body.contributer, req.body.email, req.body.DB]);
   }
   res.send('Thanks for helping in shaping Jste :)')
