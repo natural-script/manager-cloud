@@ -49,16 +49,15 @@ app.get('/deviceForm', function (req, res) {
 
 app.post('/submitCommand', function (req, res) {
   if (res.body.type == 'command') {
-    client.query('INSERT INTO commands(command) VALUES($1)', [req.body.command]);
-  } else if (res.body.type == 'wordsDB') {
-    client.query('INSERT INTO wordsDB(DB) VALUES($1)', [req.body.DB]);
+    client.query('INSERT INTO commands(contributer, email, command) VALUES($1, $2, $3)', [req.body.contributer, req.body.email, req.body.command]);
+  } else if (res.body.type == 'dictionary') {
+    client.query('INSERT INTO dictionary(contributer, email, db) VALUES($1, $2, $3)', [req.body.contributer, req.body.email, req.body.DB]);
   }
   res.send('Thanks for helping in shaping Jste :)')
 });
 
 app.post('/autoCorrect', function (req, res) {
   let key = process.env.BING_SPELL_CHECK_KEY;
-
   let request_params = {
     method: 'POST',
     hostname: 'api.cognitive.microsoft.com',
