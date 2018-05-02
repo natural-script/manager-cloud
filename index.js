@@ -25,7 +25,7 @@ app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 const root = path.join(__dirname, 'assets');
 if (process.env.DATABASE_URL) {
   const pgConnectionString = process.env.DATABASE_URL;
-  const client = new pg.Client(pgConnectionString);
+  global.client = new pg.Client(pgConnectionString);
   client.connect();
 } else if (process.env.MYSQLCONNSTR_localdb) {
   const mysqlConnectionString = process.env.MYSQLCONNSTR_localdb;
