@@ -48,7 +48,7 @@ app.get('/deviceForm', function (req, res) {
 });
 
 app.get('/getBuildInfo', function (req, res) {
-  res.sendFile('buildInfo.json')
+  res.sendFile('./buildInfo.json')
 });
 
 app.post('/submitCommand', function (req, res) {
