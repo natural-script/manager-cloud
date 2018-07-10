@@ -31,7 +31,7 @@ if (process.env.DATABASE_URL) {
   const mysqlConnectionString = process.env.MYSQLCONNSTR_localdb;
 }
 
-app.use(staticGzip(/(framework\.min\.html|db-manager\.min\.html|loader\.min\.js|loader-CodePenVersion\.min\.js)$/));
+app.use(staticGzip(/(naturalScript\.min\.js|db-manager\.min\.html|loader\.min\.js|loader-CodePenVersion\.min\.js)$/));
 
 app.use(express.static(root));
 
@@ -45,6 +45,10 @@ app.post('/getFileSize', function (req, res) {
 
 app.get('/deviceForm', function (req, res) {
   res.send(req.device.type);
+});
+
+app.get('/getBuildInfo', function (req, res) {
+  res.sendFile('buildInfo.json')
 });
 
 app.post('/submitCommand', function (req, res) {
