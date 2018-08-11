@@ -5,7 +5,6 @@ const express = require('express');
 const pg = require('pg');
 const staticGzip = require('http-static-gzip-regexp');
 const cors = require('cors');
-const https = require('https');
 const bodyParser = require('body-parser');
 const getFileSize = require('remote-file-size');
 const app = express();
