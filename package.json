@@ -6,18 +6,19 @@
   "scripts": {
     "start": "node index.js"
   },
-  "dependencies": [
-    "express",
-    "http-static-gzip-regexp",
-    "cors",
-    "octokat",
-    "xmlhttprequest",
-    "remote-file-size",
-    "express-device",
-    "serve-favicon",
-    "body-parser",
-    "pg"
-  ],
+  "dependencies": {
+    "express": "",
+    "http-static-gzip-regexp": "",
+    "cors": "",
+    "octokat": "",
+    "xmlhttprequest": "",
+    "remote-file-size": "",
+    "express-device": "",
+    "serve-favicon": "",
+    "unirest": "",
+    "body-parser": "",
+    "pg": ""
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/project-jste/manager-heroku"
