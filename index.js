@@ -10,6 +10,8 @@ const getFileSize = require('remote-file-size');
 const app = express();
 const device = require('express-device');
 const favicon = require('serve-favicon');
+const getModel = require('./scripts/getModel.js');
+const analyze = require('./scripts/analyze.js');
 app.use(device.capture());
 app.use(cors());
 app.use(bodyParser.urlencoded({
@@ -36,21 +38,21 @@ app.use(express.static(root));
 
 app.listen(process.env.PORT || 3000);
 
-app.post('/getFileSize', function(req, res) {
-    getFileSize(req.body.fileURL, function(err, o) {
+app.post('/getFileSize', function (req, res) {
+    getFileSize(req.body.fileURL, function (err, o) {
         res.send(String(o));
     });
 });
 
-app.get('/deviceForm', function(req, res) {
+app.get('/deviceForm', function (req, res) {
     res.send(req.device.type);
 });
 
-app.get('/getBuildInfo', function(req, res) {
+app.get('/getBuildInfo', function (req, res) {
     res.sendFile(path.join(__dirname, 'buildInfo.json'))
 });
 
-app.post('/submitCommand', function(req, res) {
+app.post('/submitCommand', function (req, res) {
     if (req.body.type == 'command') {
         client.query('INSERT INTO commands(contributer, email, command) VALUES($1, $2, $3)', [req.body.contributer, req.body.email, req.body.command]);
     } else if (req.body.type == 'dictionary') {
@@ -59,7 +61,7 @@ app.post('/submitCommand', function(req, res) {
     res.send('Thanks for helping in shaping Jste :)')
 });
 
-app.post('/autoCorrect', function(req, res) {
+app.post('/autoCorrect', function (req, res) {
     let key = process.env.BING_SPELL_CHECK_KEY;
     let request_params = {
         method: 'POST',
@@ -72,12 +74,12 @@ app.post('/autoCorrect', function(req, res) {
         }
     };
 
-    let response_handler = function(response) {
+    let response_handler = function (response) {
         let body = '';
-        response.on('data', function(d) {
+        response.on('data', function (d) {
             body += d;
         });
-        response.on('end', function() {
+        response.on('end', function () {
             var corrections = JSON.parse(body).flaggedTokens;
             var result = req.body.input;
             for (var i = 0; i < corrections.length; i++) {
@@ -85,7 +87,7 @@ app.post('/autoCorrect', function(req, res) {
             }
             res.send(result)
         });
-        response.on('error', function(e) {
+        response.on('error', function (e) {
             res.send('Error: ' + e.message);
         });
     };
@@ -95,7 +97,7 @@ app.post('/autoCorrect', function(req, res) {
     reqCorrections.end();
 });
 
-app.post('/getVideoInfo', function(req, res) {
+app.post('/getVideoInfo', function (req, res) {
     https.get(`https://jste-video-dl.herokuapp.com/api/info?url=${req.body.url}`, (resp) => {
         let data = '';
         resp.on('data', (chunk) => {
@@ -108,4 +110,12 @@ app.post('/getVideoInfo', function(req, res) {
     }).on("error", (err) => {
         res.send("Error: " + err.message);
     });
+});
+
+app.post('/analyze', function (req, res) {
+    analyze(req.body.text).then(result => res.send(result))
+});
+
+app.get('/analyze', function (req, res) {
+    getModel(req.body.text).then(getModel => res.send(result))
 });

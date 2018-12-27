@@ -17,7 +17,13 @@
     "serve-favicon": "",
     "unirest": "",
     "body-parser": "",
-    "pg": ""
+    "pg": "",
+    "dialogflow": "",
+    "uuid": "",
+    "firebase": "",
+    "request": "",
+    "request-promise-native": "",
+    "defiant.js": ""
   },
   "repository": {
     "type": "git",
