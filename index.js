@@ -116,6 +116,6 @@ app.post('/analyze', function (req, res) {
     analyze(req.body.text).then(result => res.send(result))
 });
 
-app.get('/analyze', function (req, res) {
+app.get('/getModel', function (req, res) {
     getModel(req.body.text).then(getModel => res.send(result))
 });
